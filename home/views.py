@@ -1,16 +1,14 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.shortcuts import render
-from django.http import HttpResponse
-from datetime import datetime
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
+from django.views.generic import ListView, DetailView
 
-class HomeView(TemplateView):
-    template_name = 'home/welcome.html'
-    extra_content = {'today':datetime.today()}
+from .models import Notes
 
-class AuthorizedView(LoginRequiredMixin, TemplateView):
-    template_name = 'home/authorized.html'
-    login_url = '/admin'
+class NotesListview(ListView):
+    model = Notes
+    context_object_name = "notes"
+    template_name = "notes/notes_list.html"
+    
+class DetailView(DetailView):
+    model = Notes
+    context_object_name = "note"
