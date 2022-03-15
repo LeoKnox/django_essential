@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from django.http import Http404
-from django.views.generic import ListView, DetailView
+from .forms import NotesForm
+from django.views.generic import ListView, DetailView, CreateView
 
 from .models import Notes
+
+class NotesCreateView(CreateView):
+    model = Notes
+    success_url = '/smart/notes'
+    form_class = NotesForm
 
 class NotesListview(ListView):
     model = Notes
